@@ -2,6 +2,8 @@ package gatech.edu.ppmtool.domain;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import javax.annotation.Generated;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,19 +11,30 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
+import javax.persistence.Column;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 @Entity
 public class Project {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
+    @NotBlank(message = "Project name is a required field.")
     private String projectName;
+    @NotBlank(message = "Project description is required.")
     private String description;
+    @NotBlank(message = "Project id is a required field.")
+    @Size(min = 4, max = 5, message = "Project id (abbrev.) should be of length 4 to 5.")
+    @Column(updatable = false, unique = true)
     private String projectId;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm a z")
     private Date startDate;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm a z")
     private Date endDate;
-
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm a z")
     private Date createdAt;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm a z")
     private Date updatedAt;
 
     @PreUpdate
