@@ -1,0 +1,27 @@
+img {
+  width: 100%;
+}
+
+.navbar {
+  background-color: #523d6d;
+}
+
+.text-center {
+  font-size: 35px;
+}
+
+.list-group-mine .list-group-item {
+  background-color: #f1f9fb;
+  color: #666666;
+  background-color: #eeeeee;
+}
+
+.list-group-mine .list-group-item:hover {
+  color: #523d6d;
+  background-color: #ffffff;
+}
+
+.list-group-mine .delete:hover {
+  color: red;
+  background-color: #ffffff;
+}
