@@ -3,6 +3,7 @@ import React, { Component } from "react";
 export default class Header extends Component {
   render() {
     return (
+      // Navbar component.
       <nav className="navbar navbar-expand-lg navbar-dark">
         <div className="container">
           <a className="navbar-brand" href="Dashboard.html">
