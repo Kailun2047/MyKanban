@@ -1,15 +1,21 @@
 import React, { Component } from "react";
 
 export default class AddProject extends Component {
-  /*constructor(props) {
+  constructor(props) {
     super(props);
     this.state = {
-      value: ""
+      projectName: "",
+      projectId: "",
+      description: "",
+      startDate: "",
+      endDate: ""
     };
-
     this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }*/
+  }
+
+  handleChange(e) {
+    this.setState({ [e.target.name]: e.target.value });
+  }
 
   render() {
     return (
@@ -24,17 +30,22 @@ export default class AddProject extends Component {
                 <div className="from-group">
                   <input
                     type="text"
-                    name="projectname"
+                    name="projectName"
                     className="form-control"
-                    placeholder="Unique Project name"
+                    placeholder="Project name"
+                    value={this.state.projectName}
+                    onChange={this.handleChange}
                   />
                 </div>
                 <br />
                 <div className="form-group">
                   <input
                     type="text"
+                    name="projectId"
                     className="form-control"
                     placeholder="Unique Project ID"
+                    value={this.state.projectId}
+                    onChange={this.handleChange}
                   />
                 </div>
                 <div className="form-group">
@@ -43,15 +54,29 @@ export default class AddProject extends Component {
                     name="description"
                     rows="1"
                     placeholder="Brief Description"
+                    value={this.state.description}
+                    onChange={this.handleChange}
                   ></textarea>
                 </div>
                 <h6>Start Date:</h6>
                 <div className="form-group">
-                  <input type="date" className="form-control" />
+                  <input
+                    type="date"
+                    name="startDate"
+                    className="form-control"
+                    value={this.state.startDate}
+                    onChange={this.handleChange}
+                  />
                 </div>
                 <h6>Estimated End Date:</h6>
                 <div className="form-group">
-                  <input type="date" className="form-control" />
+                  <input
+                    type="date"
+                    name="endDate"
+                    className="form-control"
+                    value={this.state.endDate}
+                    onChange={this.handleChange}
+                  />
                 </div>
                 <div className="text-center">
                   <input
