@@ -1,6 +1,9 @@
 import React, { Component } from "react";
+import { PropTypes } from "prop-types";
+import { createProject } from "../../actions/createProject";
+import { connect } from "react-redux";
 
-export default class AddProject extends Component {
+class AddProject extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -15,6 +18,18 @@ export default class AddProject extends Component {
 
   handleChange(e) {
     this.setState({ [e.target.name]: e.target.value });
+  }
+
+  handleSubmit(e) {
+    e.preventDefault();
+    const newProject = {
+      projectName: this.state.projectName,
+      projectId: this.state.projectId,
+      description: this.state.description,
+      startDate: this.state.startDate,
+      endDate: this.state.endDate
+    };
+    this.props.createProject(newProject, this.props.history);
   }
 
   render() {
@@ -83,6 +98,7 @@ export default class AddProject extends Component {
                     type="submit"
                     className="btn btn-lg btn-secondary"
                     value="Submit"
+                    onSubmit={this.handleSubmit}
                   />
                 </div>
               </form>
@@ -93,3 +109,12 @@ export default class AddProject extends Component {
     );
   }
 }
+
+AddProject.propTypes = {
+  createProject: PropTypes.func.isRequired
+};
+
+export default connect(
+  null,
+  { createProject }
+)(AddProject);
