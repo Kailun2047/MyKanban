@@ -28,9 +28,9 @@ public class Project {
     @Size(min = 4, max = 5, message = "Project id (abbrev.) should be of length 4 to 5.")
     @Column(updatable = false, unique = true)
     private String projectId;
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm a z")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date startDate;
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm a z")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date endDate;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm a z")
     private Date createdAt;

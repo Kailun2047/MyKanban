@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { PropTypes } from "prop-types";
-import { createProject } from "../../actions/createProject";
+import { createProject } from "../../actions/projectActions";
 import { connect } from "react-redux";
 
 class AddProject extends Component {
@@ -14,6 +14,7 @@ class AddProject extends Component {
       endDate: ""
     };
     this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleChange(e) {
@@ -41,7 +42,7 @@ class AddProject extends Component {
               <br />
               <h5 className="text-center">Create a Project</h5>
               <hr />
-              <form>
+              <form onSubmit={this.handleSubmit}>
                 <div className="from-group">
                   <input
                     type="text"
@@ -98,7 +99,6 @@ class AddProject extends Component {
                     type="submit"
                     className="btn btn-lg btn-secondary"
                     value="Submit"
-                    onSubmit={this.handleSubmit}
                   />
                 </div>
               </form>
