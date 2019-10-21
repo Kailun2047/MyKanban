@@ -15,6 +15,7 @@ import org.springframework.validation.BindingResult;
 
 @RestController
 @RequestMapping(value = "/api/project")
+@CrossOrigin
 public class ProjectController {
     @Autowired
     private ProjectService projectService;
