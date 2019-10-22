@@ -1,8 +1,18 @@
 import React, { Component } from "react";
 import CreateProjectButton from "./Project/CreateProjectButton";
+import { connect } from "react-redux";
+import { getProjects } from "../actions/projectActions";
+import PropTypes from "prop-types";
+import ProjectItem from "./Project/ProjectItem";
 
-export default class Dashboard extends Component {
+class Dashboard extends Component {
+  componentDidMount() {
+    this.props.getProjects();
+  }
+
   render() {
+    const { projects } = this.props.projectsResp;
+
     return (
       <div className="projects">
         {/* Dashboard */}
@@ -13,44 +23,13 @@ export default class Dashboard extends Component {
               <h1 className="text-center">Project Board</h1>
               <br />
               <CreateProjectButton />
-
               <br />
               <hr />
-
               {/* Project items */}
-              <div className="container">
-                <div className="card card-body bg-light">
-                  <div className="row">
-                    <div className="col-2">
-                      <span className="mx-auto">PROJ1</span>
-                    </div>
-                    <div className="col-lg-6 col-md-4 col-8">
-                      <h3>Spring/React project</h3>
-                      <p>Test project item</p>
-                    </div>
-                    <div className="col-md-4 d-none d-lg-block">
-                      <ul className="list-group list-group-mine">
-                        <a href="#">
-                          <li className="list-group-item board">
-                            <i className="far fa-file-code"> Project Board</i>
-                          </li>
-                        </a>
-                        <a href="#">
-                          <li className="list-group-item update">
-                            <i className="far fa-edit">Update Project</i>
-                          </li>
-                        </a>
-                        <a href="#">
-                          <li className="list-group-item delete">
-                            <i className="far fa-trash-alt"> Delete Project</i>
-                          </li>
-                        </a>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              {/* End of project item */}
+              {projects.map(p => (
+                <ProjectItem key={p.id} project={p} />
+              ))}
+              {/* End of project items */}
             </div>
           </div>
         </div>
@@ -59,3 +38,17 @@ export default class Dashboard extends Component {
     );
   }
 }
+
+Dashboard.propTypes = {
+  getProjects: PropTypes.func.isRequired,
+  projectsResp: PropTypes.object.isRequired
+};
+
+const mapStateToProps = state => {
+  return { projectsResp: state.projectsResp };
+};
+
+export default connect(
+  mapStateToProps,
+  { getProjects }
+)(Dashboard);
