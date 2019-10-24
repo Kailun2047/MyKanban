@@ -15,7 +15,15 @@ public class ProjectService {
     public Project saveOrUpdateProject(Project project) {
         try {
             project.setProjectId(project.getProjectId().toUpperCase());
-            return projectRepository.save(project);
+            Project p = projectRepository.findByProjectId(project.getProjectId());
+            if (p == null) {
+                return projectRepository.save(project);
+            }
+            p.setProjectName(project.getProjectName());
+            p.setDescription(project.getDescription());
+            p.setStartDate(project.getStartDate());
+            p.setEndDate(project.getEndDate());
+            return projectRepository.save(p);
         } catch (Exception e) {
             throw new ProjectIdException("Project id '" + project.getProjectId().toUpperCase() + "' already exists");
         }

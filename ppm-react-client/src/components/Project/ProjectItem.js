@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 
 export default class ProjectItem extends Component {
   render() {
@@ -22,11 +23,11 @@ export default class ProjectItem extends Component {
                     <i className="far fa-file-code"> Project Board</i>
                   </li>
                 </a>
-                <a href="#">
+                <Link to={`/updateProject/${project.projectId}`}>
                   <li className="list-group-item update">
                     <i className="far fa-edit">Update Project</i>
                   </li>
-                </a>
+                </Link>
                 <a href="#">
                   <li className="list-group-item delete">
                     <i className="far fa-trash-alt"> Delete Project</i>
