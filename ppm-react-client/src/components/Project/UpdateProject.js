@@ -7,6 +7,7 @@ class UpdateProject extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      id: "",
       projectName: "",
       projectId: "",
       description: "",
@@ -24,6 +25,7 @@ class UpdateProject extends Component {
   handleSubmit = function(e) {
     e.preventDefault();
     const newProject = {
+      id: this.state.id,
       projectName: this.state.projectName,
       projectId: this.state.projectId,
       description: this.state.description,
@@ -34,20 +36,22 @@ class UpdateProject extends Component {
   };
 
   componentDidMount() {
-    const id = this.props.match.params.id;
-    this.props.getProject(id);
+    const { projectId } = this.props.match.params;
+    this.props.getProject(projectId);
   }
 
   componentWillReceiveProps(newProp) {
     if (newProp.projectsResp.project) {
       const { project } = newProp.projectsResp;
       this.setState({
+        id: project.id,
         projectName: project.projectName,
         projectId: project.projectId,
         description: project.description,
         startDate: project.startDate,
         endDate: project.endDate
       });
+    } else if (newProp.errors) {
     }
   }
 
@@ -132,7 +136,9 @@ UpdateProject.propTypes = {
 };
 
 const mapStateToProps = state => {
-  return { projectsResp: state.projectsResp };
+  return {
+    projectsResp: state.projectsResp
+  };
 };
 
 export default connect(
