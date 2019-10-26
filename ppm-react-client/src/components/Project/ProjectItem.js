@@ -1,7 +1,21 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import { deleteProject } from "../../actions/projectActions";
+import PropTypes from "prop-types";
 
-export default class ProjectItem extends Component {
+class ProjectItem extends Component {
+  constructor(props) {
+    super(props);
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  handleClick = function(e) {
+    e.preventDefault();
+    const { projectId } = this.props.project;
+    this.props.deleteProject(projectId);
+  };
+
   render() {
     const { project } = this.props;
 
@@ -28,7 +42,7 @@ export default class ProjectItem extends Component {
                     <i className="far fa-edit">Update Project</i>
                   </li>
                 </Link>
-                <a href="#">
+                <a href="." onClick={this.handleClick}>
                   <li className="list-group-item delete">
                     <i className="far fa-trash-alt"> Delete Project</i>
                   </li>
@@ -41,3 +55,12 @@ export default class ProjectItem extends Component {
     );
   }
 }
+
+ProjectItem.propTypes = {
+  deleteProject: PropTypes.func.isRequired
+};
+
+export default connect(
+  null,
+  { deleteProject }
+)(ProjectItem);

@@ -2,7 +2,6 @@ import axios from "axios";
 
 export const createProject = (project, history) => async dispatch => {
   try {
-    console.log(project);
     const resp = await axios.post("http://localhost:8080/api/project", project);
     // Wait until the post request is completed, then return to dashboard.
     history.push("/dashboard");
@@ -29,5 +28,15 @@ export const getProject = projectId => async dispatch => {
   dispatch({
     type: "GET_PROJECT",
     payload: resp.data
+  });
+};
+
+export const deleteProject = projectId => async dispatch => {
+  const resp = await axios.delete(
+    `http://localhost:8080/api/project/${projectId}`
+  );
+  dispatch({
+    type: "DELETE_PROJECT",
+    payload: projectId
   });
 };
