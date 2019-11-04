@@ -1,5 +1,7 @@
 package gatech.edu.ppmtool.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.util.Date;
@@ -13,7 +15,7 @@ public class ProjectTask {
     @NotBlank(message = "Please give a brief summary.")
     private String summary;
     private String acceptanceCriteria;
-    private int priority;
+    private Integer priority;
     private String status;
     private Date dueDate;
     private Date createdAt;
@@ -22,6 +24,7 @@ public class ProjectTask {
     private String projectId;
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "backlog", nullable = false)
+    @JsonIgnore
     private Backlog backlog;
 
     @PrePersist
@@ -53,7 +56,7 @@ public class ProjectTask {
         return acceptanceCriteria;
     }
 
-    public int getPriority() {
+    public Integer getPriority() {
         return priority;
     }
 
@@ -79,6 +82,10 @@ public class ProjectTask {
 
     public Backlog getBacklog() {
         return backlog;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public void setTaskSequence(String taskSequence) {

@@ -3,7 +3,6 @@ package gatech.edu.ppmtool.domain;
 import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.annotation.Generated;
 import javax.persistence.*;
@@ -14,7 +13,7 @@ import javax.validation.constraints.Size;
 public class Project {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    private Long id;
     @NotBlank(message = "Project name is a required field.")
     private String projectName;
     @NotBlank(message = "Project description is required.")
@@ -33,7 +32,6 @@ public class Project {
     private Date updatedAt;
 
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "project")
-    @JsonIgnore
     private Backlog backlog;
 
     @PreUpdate
@@ -46,7 +44,7 @@ public class Project {
         this.createdAt = new Date();
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
@@ -78,7 +76,11 @@ public class Project {
         return updatedAt;
     }
 
-    public void setId(long id) {
+    public Backlog getBacklog() {
+        return backlog;
+    }
+
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -100,5 +102,9 @@ public class Project {
 
     public void setEndDate(Date endDate) {
         this.endDate = endDate;
+    }
+
+    public void setBacklog(Backlog backlog) {
+        this.backlog = backlog;
     }
 }

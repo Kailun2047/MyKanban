@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -12,25 +13,29 @@ public class Backlog {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
     private long id;
-    private long projectId;
+    private String projectId;
 
     @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "projectDBId", nullable = false)
+    @JoinColumn(name = "project", nullable = false)
+    @JsonIgnore
     private Project project;
     private long sequenceNum;
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "backlog")
-    @JsonIgnore
-    private List<ProjectTask> tasks;
+    private List<ProjectTask> tasks = new ArrayList<>();
 
     public Backlog() {
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public long getId() {
         return id;
     }
 
-    public long getProjectId() {
+    public String getProjectId() {
         return projectId;
     }
 
@@ -38,11 +43,27 @@ public class Backlog {
         return project;
     }
 
-    public void setProjectId(long projectId) {
+    public long getSequenceNum() {
+        return sequenceNum;
+    }
+
+    public List<ProjectTask> getTasks() {
+        return tasks;
+    }
+
+    public void setProjectId(String projectId) {
         this.projectId = projectId;
     }
 
     public void setProject(Project project) {
         this.project = project;
+    }
+
+    public void setSequenceNum(long sequenceNum) {
+        this.sequenceNum = sequenceNum;
+    }
+
+    public void setTasks(List<ProjectTask> tasks) {
+        this.tasks = tasks;
     }
 }
