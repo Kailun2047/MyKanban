@@ -5,13 +5,7 @@ import java.util.Date;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import javax.annotation.Generated;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.PrePersist;
-import javax.persistence.PreUpdate;
-import javax.persistence.Column;
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
@@ -19,7 +13,7 @@ import javax.validation.constraints.Size;
 public class Project {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    private Long id;
     @NotBlank(message = "Project name is a required field.")
     private String projectName;
     @NotBlank(message = "Project description is required.")
@@ -37,6 +31,9 @@ public class Project {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm a z")
     private Date updatedAt;
 
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "project")
+    private Backlog backlog;
+
     @PreUpdate
     protected void onUpdate() {
         this.updatedAt = new Date();
@@ -47,7 +44,7 @@ public class Project {
         this.createdAt = new Date();
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
@@ -79,7 +76,11 @@ public class Project {
         return updatedAt;
     }
 
-    public void setId(long id) {
+    public Backlog getBacklog() {
+        return backlog;
+    }
+
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -101,5 +102,9 @@ public class Project {
 
     public void setEndDate(Date endDate) {
         this.endDate = endDate;
+    }
+
+    public void setBacklog(Backlog backlog) {
+        this.backlog = backlog;
     }
 }
