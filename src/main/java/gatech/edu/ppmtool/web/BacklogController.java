@@ -29,4 +29,10 @@ public class BacklogController {
         }
         return new ResponseEntity<>(projectTaskService.addProjectTask(projectId, task), HttpStatus.CREATED);
     }
+
+    @GetMapping(value = "/{projectId}")
+    public ResponseEntity<?> getProjectTasksByProjectId(@PathVariable String projectId) {
+        Iterable<ProjectTask> tasks = projectTaskService.getProjectTasksByProjectId(projectId);
+        return new ResponseEntity<>(tasks, HttpStatus.OK);
+    }
 }
