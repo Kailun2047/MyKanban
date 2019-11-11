@@ -7,4 +7,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ProjectTaskRepository extends CrudRepository<ProjectTask, Long> {
+    public ProjectTask findByTaskSequence(String taskSequence);
 }

@@ -35,4 +35,24 @@ public class BacklogController {
         Iterable<ProjectTask> tasks = projectTaskService.getProjectTasksByProjectId(projectId);
         return new ResponseEntity<>(tasks, HttpStatus.OK);
     }
+
+    @GetMapping(value="/{projectId}/{taskSequence}")
+    public ResponseEntity<?> getProjectTaskBySequence(@PathVariable String projectId, @PathVariable String taskSequence) {
+        return new ResponseEntity<>(projectTaskService.getProjectTaskBySequence(projectId, taskSequence), HttpStatus.OK );
+    }
+
+    @PatchMapping(value = "/{projectId}/{taskSequence}")
+    public ResponseEntity<?> updateProjectTaskBySequence(@Valid @RequestBody ProjectTask task, BindingResult bindingResult, @PathVariable String projectId, @PathVariable String taskSequence) {
+        ResponseEntity<?> errResp = validationService.validate(bindingResult);
+        if (errResp != null) {
+            return errResp;
+        }
+        return new ResponseEntity<>(projectTaskService.updateProjectTaskBySequence(task, projectId, taskSequence), HttpStatus.OK);
+    }
+
+    @DeleteMapping(value = "/{projectId}/{taskSequence}")
+    public ResponseEntity<?> deleteProjectTaskBySequence(@PathVariable String projectId, @PathVariable String taskSequence) {
+        projectTaskService.deleteProjectTaskBySequence(projectId, taskSequence);
+        return new ResponseEntity<String>("Project task " + taskSequence + "successfully deleted", HttpStatus.OK);
+    }
 }
