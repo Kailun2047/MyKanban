@@ -5,7 +5,7 @@ export default function CreateProjectButton(props) {
   return (
     <React.Fragment>
       <Link to="/addProject" className="btn btn-lg btn-secondary">
-        Create Project
+        <i className="fas fa-plus-circle">Create Project</i>
       </Link>
     </React.Fragment>
   );

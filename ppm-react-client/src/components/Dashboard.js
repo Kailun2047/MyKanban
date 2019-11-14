@@ -26,7 +26,7 @@ class Dashboard extends Component {
           <div className="row">
             <div className="col-md-12">
               <br />
-              <h1 className="text-center">Project Board</h1>
+              <h1 className="text-center">Projects Dashboard</h1>
               <br />
               <CreateProjectButton />
               <br />
@@ -54,7 +54,4 @@ const mapStateToProps = state => {
   return { projectsResp: state.projectsResp };
 };
 
-export default connect(
-  mapStateToProps,
-  { getProjects }
-)(Dashboard);
+export default connect(mapStateToProps, { getProjects })(Dashboard);
