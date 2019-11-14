@@ -5,8 +5,8 @@ export default class ProjectTaskItem extends Component {
     return (
       <div className="project-task">
         <hr />
-        <div className="card">
-          <div className="card-header">Task Name</div>
+        <div className="card border-secondary">
+          <div className="card-header bg-light"></div>
           <div className="card-body">
             <h5 className="card-title">Task Summary</h5>
             <p className="card-text">Acceptance criteria.</p>

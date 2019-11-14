@@ -14,7 +14,7 @@ import java.util.List;
 
 @Service
 public class ProjectTaskService {
-    private static String INITIAL_STATUS = "TODO";
+    private static String INITIAL_STATUS = "To Do";
     private static final int INITIAL_PRIORITY = 3;
     @Autowired
     private BacklogRepository backlogRepository;

@@ -9,7 +9,10 @@ export default class ProjectBoard extends Component {
       <div className="projectBoard">
         <div className="container">
           <br />
-          <Link to="/addProjectTask" className="btn btn-lg btn-secondary">
+          <Link
+            to={`/addProjectTask/${projectId}`}
+            className="btn btn-lg btn-secondary"
+          >
             <i className="fas fa-plus-circle"> Add Task</i>
           </Link>
           <br />

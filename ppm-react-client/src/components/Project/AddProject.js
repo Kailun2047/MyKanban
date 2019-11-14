@@ -49,10 +49,10 @@ class AddProject extends Component {
           <div className="row">
             <div className="col-mid-8 m-auto">
               <br />
-              <h5 className="text-center">Create a Project</h5>
+              <h5 className="text-center"> Create a Project</h5>
               <hr />
               <form onSubmit={this.handleSubmit}>
-                <div className="from-group">
+                <div className="form-group">
                   <input
                     type="text"
                     name="projectName"
@@ -135,7 +135,4 @@ AddProject.propTypes = {
   errors: PropTypes.object.isRequired
 };
 
-export default connect(
-  mapStateToProps,
-  { createProject }
-)(AddProject);
+export default connect(mapStateToProps, { createProject })(AddProject);
