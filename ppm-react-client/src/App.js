@@ -38,7 +38,7 @@ class App extends Component {
             />
             <Route
               exact
-              path="/updateProjectTask/:projectId"
+              path="/updateProjectTask/:projectId/:taskSequence"
               component={UpdateProjectTask}
             />
           </div>

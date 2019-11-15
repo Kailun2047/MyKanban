@@ -6,7 +6,7 @@ export const createProjectTask = (
   history
 ) => async dispatch => {
   try {
-    const resp = await axios.post(
+    await axios.post(
       `http://localhost:8080/api/backlog/${projectId}`,
       projectTask
     );
@@ -17,4 +17,27 @@ export const createProjectTask = (
       payload: err.response.data
     });
   }
+};
+
+export const getProjectTaskByProjectId = projectId => async dispatch => {
+  const resp = await axios.get(
+    `http://localhost:8080/api/backlog/${projectId}`
+  );
+  dispatch({
+    type: "GET_TASKS",
+    payload: resp.data
+  });
+};
+
+export const getProjectTaskByTaskSequence = (
+  projectId,
+  taskSequence
+) => async dispatch => {
+  const resp = await axios.get(
+    `http://localhost:8080/api/backlog/${projectId}/${taskSequence}`
+  );
+  dispatch({
+    type: "GET_TASK",
+    payload: resp.data
+  });
 };

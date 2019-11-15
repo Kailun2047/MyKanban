@@ -7,14 +7,11 @@ import classnames from "classnames";
 class AddProjectTask extends Component {
   constructor(props) {
     super(props);
-    const { projectId } = this.props.match.params;
     this.state = {
-      projectId: projectId,
       summary: "",
       acceptanceCriteria: "",
       priority: "",
       status: "",
-      startDate: "",
       dueDate: "",
       errors: {}
     };
@@ -33,11 +30,18 @@ class AddProjectTask extends Component {
       summary: this.state.summary,
       acceptanceCriteria: this.state.acceptanceCriteria,
       priority: this.state.priority,
-      state: this.state.status,
-      startDate: this.state.startDate,
+      status: this.state.status,
       dueDate: this.state.dueDate
     };
     this.props.createProjectTask(projectId, newTask, this.props.history);
+  }
+
+  componentWillReceiveProps(newProps) {
+    if (newProps.errors) {
+      this.setState({
+        errors: newProps.errors
+      });
+    }
   }
 
   render() {
@@ -108,24 +112,15 @@ class AddProjectTask extends Component {
                     <option value="Completed">Completed</option>
                   </select>
                 </div>
-                <h6>Start Date:</h6>
+                <h6>Due Date:</h6>
                 <div className="form-group">
                   <input
-                    type="date"
                     className="form-control"
-                    name="startDate"
-                    value={this.state.startDate}
+                    type="date"
+                    name="dueDate"
+                    value={this.state.dueDate}
                     onChange={this.handleChange}
                   ></input>
-                </div>
-                <h6>Due Date:</h6>
-                <div
-                  className="form-group"
-                  name="dueDate"
-                  value={this.state.dueDate}
-                  onChange={this.handleChange}
-                >
-                  <input className="form-control" type="date"></input>
                 </div>
                 <div className="text-center">
                   <input
