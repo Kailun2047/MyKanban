@@ -1,9 +1,11 @@
 package gatech.edu.ppmtool.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
 import java.util.Date;
 
 @Entity
@@ -17,8 +19,11 @@ public class ProjectTask {
     private String acceptanceCriteria;
     private Integer priority;
     private String status;
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date dueDate;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm a z")
     private Date createdAt;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm a z")
     private Date updatedAt;
 
     private String projectId;

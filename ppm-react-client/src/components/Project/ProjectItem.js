@@ -32,11 +32,11 @@ class ProjectItem extends Component {
             </div>
             <div className="col-md-4 d-none d-lg-block">
               <ul className="list-group list-group-mine">
-                <a href="#">
+                <Link to={`/projectBoard/${project.projectId}`}>
                   <li className="list-group-item board">
                     <i className="far fa-file-code"> Project Board</i>
                   </li>
-                </a>
+                </Link>
                 <Link to={`/updateProject/${project.projectId}`}>
                   <li className="list-group-item update">
                     <i className="far fa-edit">Update Project</i>
@@ -60,7 +60,4 @@ ProjectItem.propTypes = {
   deleteProject: PropTypes.func.isRequired
 };
 
-export default connect(
-  null,
-  { deleteProject }
-)(ProjectItem);
+export default connect(null, { deleteProject })(ProjectItem);
