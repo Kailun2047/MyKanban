@@ -18,9 +18,7 @@ function projectTasksReducer(state = initialState, action) {
     case "DELETE_TASK":
       return {
         ...state,
-        tasks: state.tasks.filter(
-          t => t.taskSequence !== action.payload.taskSequence
-        )
+        tasks: state.tasks.filter(t => t.taskSequence !== action.payload)
       };
     default:
       return state;

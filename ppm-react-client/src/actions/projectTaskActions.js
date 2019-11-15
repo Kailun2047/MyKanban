@@ -41,3 +41,13 @@ export const getProjectTaskByTaskSequence = (
     payload: resp.data
   });
 };
+
+export const deleteTask = (projectId, taskSequence) => async dispatch => {
+  await axios.delete(
+    `http://localhost:8080/api/backlog/${projectId}/${taskSequence}`
+  );
+  dispatch({
+    type: "DELETE_TASK",
+    payload: taskSequence
+  });
+};

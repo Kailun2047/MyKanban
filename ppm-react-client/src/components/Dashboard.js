@@ -10,12 +10,6 @@ class Dashboard extends Component {
     this.props.getProjects();
   }
 
-  componentWillReceiveProps(newProp) {
-    if (newProp.projectResp) {
-      this.props.projectResp = newProp.projectResp;
-    }
-  }
-
   render() {
     const { projects } = this.props.projectsResp;
 
