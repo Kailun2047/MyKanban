@@ -19,6 +19,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         // authenticationEntryPoint() is for customizing response headers.
         http
+                .csrf().disable()
                 .exceptionHandling()
                 .authenticationEntryPoint(jwtEntryPoint)
                 .and()
