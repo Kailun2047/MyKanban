@@ -3,6 +3,7 @@ package gatech.edu.ppmtool.web;
 import gatech.edu.ppmtool.domain.User;
 import gatech.edu.ppmtool.services.FormValidationService;
 import gatech.edu.ppmtool.services.UserService;
+import gatech.edu.ppmtool.validator.UserRegistrationValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,13 +17,17 @@ import javax.validation.Valid;
 @RequestMapping(value = "/api/users")
 public class UserController {
     @Autowired
-    UserService userService;
+    private UserService userService;
 
     @Autowired
-    FormValidationService formValidationService;
+    private FormValidationService formValidationService;
+
+    @Autowired
+    private UserRegistrationValidator validator;
 
     @PostMapping(value = "/register")
     public ResponseEntity<?> registerUser(@Valid @RequestBody User user, BindingResult bindingResult) {
+        validator.validate(user, bindingResult);
         ResponseEntity<?> errResp = formValidationService.validate(bindingResult);
         if (errResp != null) {
             return errResp;

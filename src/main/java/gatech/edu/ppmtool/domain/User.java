@@ -14,11 +14,11 @@ public class User implements UserDetails {
     public User() {
     }
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @Email(message = "Please enter a valid email address")
-    @Column(unique = true)
     @NotBlank(message = "Username should not be blank")
+    @Column(unique = true)
     private String username;
     @NotBlank(message = "Password should not be blank")
     private String password;

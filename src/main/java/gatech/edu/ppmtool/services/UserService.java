@@ -1,6 +1,7 @@
 package gatech.edu.ppmtool.services;
 
 import gatech.edu.ppmtool.domain.User;
+import gatech.edu.ppmtool.exceptions.UsernameException;
 import gatech.edu.ppmtool.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -15,7 +16,13 @@ public class UserService {
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     public User saveUser(User user) {
-        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        return userRepository.save(user);
+        try {
+            user.setUsername(user.getUsername());
+            user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+            user.setConfirmPassword("");
+            return userRepository.save(user);
+        } catch (Exception e) {
+            throw new UsernameException("Username '" + user.getUsername() + "' already exists");
+        }
     }
 }
