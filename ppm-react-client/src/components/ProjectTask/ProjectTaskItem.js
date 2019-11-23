@@ -35,7 +35,6 @@ class ProjectTaskItem extends Component {
     }
     return (
       <div className="project-task">
-        <hr />
         <div className="card border-secondary">
           <div
             className={classnames("card-header", `bg-${priorityColor}`)}
@@ -55,6 +54,7 @@ class ProjectTaskItem extends Component {
             </a>
           </div>
         </div>
+        <br />
       </div>
     );
   }

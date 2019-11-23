@@ -55,6 +55,7 @@ class ProjectBoard extends Component {
                   <i className="fas fa-list-ul"> To Do</i>
                 </div>
               </div>
+              <hr />
               {toDoList.map(t => (
                 <ProjectTaskItem key={t.id} projectTask={t} />
               ))}
@@ -65,6 +66,7 @@ class ProjectBoard extends Component {
                   <i className="fas fa-tasks"> In Progress</i>
                 </div>
               </div>
+              <hr />
               {inProgressList.map(t => (
                 <ProjectTaskItem key={t.id} projectTask={t} />
               ))}
@@ -75,6 +77,7 @@ class ProjectBoard extends Component {
                   <i className="fas fa-vial"> Testing</i>
                 </div>
               </div>
+              <hr />
               {testingList.map(t => (
                 <ProjectTaskItem key={t.id} projectTask={t} />
               ))}
@@ -85,6 +88,7 @@ class ProjectBoard extends Component {
                   <i className="fas fa-check-double"> Completed</i>
                 </div>
               </div>
+              <hr />
               {completedList.map(t => (
                 <ProjectTaskItem key={t.id} projectTask={t} />
               ))}

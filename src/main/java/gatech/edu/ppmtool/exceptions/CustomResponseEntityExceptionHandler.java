@@ -26,4 +26,10 @@ public class CustomResponseEntityExceptionHandler extends ResponseEntityExceptio
         TaskIdExceptionResponse resp = new TaskIdExceptionResponse(e.getMessage());
         return new ResponseEntity<>(resp, HttpStatus.BAD_REQUEST);
     }
+
+    @ExceptionHandler
+    public final ResponseEntity<Object> handleUsernameException (UsernameException e, WebRequest r) {
+        UsernameExceptionResponse resp = new UsernameExceptionResponse(e.getMessage());
+        return new ResponseEntity<>(resp, HttpStatus.BAD_REQUEST);
+    }
 }
