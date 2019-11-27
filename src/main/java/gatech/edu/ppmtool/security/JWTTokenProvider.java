@@ -21,7 +21,7 @@ public class JWTTokenProvider {
         Date issueAt = new Date(System.currentTimeMillis());
         User user = (User) auth.getPrincipal();
         Map<String, Object> claims = new HashMap<>();
-        claims.put("id", user.getId());
+        claims.put("id", String.valueOf(user.getId()));
         claims.put("username", user.getUsername());
         claims.put("password", user.getPassword());
         claims.put("fullUserName", user.getFullUserName());
@@ -36,7 +36,7 @@ public class JWTTokenProvider {
 
     public boolean validateToken(String token) {
         try {
-            Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJwt(token);
+            Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJws(token);
             return true;
         } catch (SignatureException e1) {
             System.out.println("Invalid signature");
@@ -53,9 +53,13 @@ public class JWTTokenProvider {
     }
 
     public Long getUserId(String token) {
-        Jwt jwt = Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJwt(token);
-        Claims claims = (Claims) jwt.getBody();
-        String idStr = (String) claims.get("id");
-        return Long.parseLong(idStr);
+        try {
+            Jws<Claims> jws = Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJws(token);
+            String idStr = (String) jws.getBody().get("id");
+            return Long.parseLong(idStr);
+        } catch (JwtException e) {
+            System.out.println("Failed to retrieve user id from token");
+            return null;
+        }
     }
 }

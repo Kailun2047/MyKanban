@@ -38,7 +38,6 @@ public class JWTAuthenticationFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, FilterChain filterChain) throws ServletException, IOException {
         try {
             String token = getJWTFromRequest(httpServletRequest);
-            System.out.println(token);
             if (StringUtils.hasText(token) && tokenProvider.validateToken(token)) {
                 Long id = tokenProvider.getUserId(token);
                 UserDetails userDetails = userDetailsService.loadUserById(id);
