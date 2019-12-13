@@ -8,6 +8,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 public class User implements UserDetails {
@@ -28,6 +29,9 @@ public class User implements UserDetails {
     private String fullUserName;
     private Date createdAt;
     private Date updatedAt;
+
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "projectManager", orphanRemoval = true)
+    private List<Project> projects;
 
     @PrePersist
     protected void onCreate() {

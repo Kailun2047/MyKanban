@@ -7,11 +7,15 @@ import gatech.edu.ppmtool.services.ProjectService;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
+
+import java.security.Principal;
 
 @RestController
 @RequestMapping(value = "/api/project")
@@ -29,13 +33,15 @@ public class ProjectController {
         if (resp != null) {
             return resp;
         }
-        projectService.saveOrUpdateProject(project);
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        projectService.saveOrUpdateProject(project, username);
         return new ResponseEntity<>(project, HttpStatus.CREATED);
     }
 
     @GetMapping(value = "/{projectId}")
     public ResponseEntity<?> getProject(@PathVariable String projectId) {
-        Project proj = projectService.readProjectByProjectId(projectId.toUpperCase());
+        Principal principal = (Principal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Project proj = projectService.readProjectByProjectId(projectId.toUpperCase(), principal);
         return new ResponseEntity<>(proj, HttpStatus.OK);
     }
 
@@ -47,7 +53,8 @@ public class ProjectController {
 
     @DeleteMapping(value = "/{projectId}")
     public ResponseEntity<?> deleteProject(@PathVariable String projectId) {
-        projectService.deleteProjectByProjectId(projectId);
+        Principal principal = (Principal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        projectService.deleteProjectByProjectId(projectId, principal);
         return new ResponseEntity<String>("Project '" + projectId + "' deleted successfully", HttpStatus.OK);
     }
 }
