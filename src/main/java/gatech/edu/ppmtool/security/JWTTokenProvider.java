@@ -15,7 +15,7 @@ import java.util.Map;
 
 @Component
 public class JWTTokenProvider {
-    private final long EXPIRATION_PERIOD = 300000;
+    private final long EXPIRATION_PERIOD = 600000;
     private final SecretKey SECRET_KEY = Keys.secretKeyFor(SignatureAlgorithm.HS256);
     public String generateToken(Authentication auth) {
         Date issueAt = new Date(System.currentTimeMillis());

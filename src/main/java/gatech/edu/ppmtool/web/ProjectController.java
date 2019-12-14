@@ -39,22 +39,20 @@ public class ProjectController {
     }
 
     @GetMapping(value = "/{projectId}")
-    public ResponseEntity<?> getProject(@PathVariable String projectId) {
-        Principal principal = (Principal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    public ResponseEntity<?> getProject(@PathVariable String projectId, Principal principal) {
         Project proj = projectService.readProjectByProjectId(projectId.toUpperCase(), principal);
         return new ResponseEntity<>(proj, HttpStatus.OK);
     }
 
     @GetMapping(value = "/all")
-    public Iterable<Project> getAllProjects() {
-        Iterable<Project> projects = projectService.readAllProjects();
+    public Iterable<Project> getAllProjects(Principal principal) {
+        Iterable<Project> projects = projectService.readAllProjects(principal);
         return projects;
     }
 
     @DeleteMapping(value = "/{projectId}")
-    public ResponseEntity<?> deleteProject(@PathVariable String projectId) {
-        Principal principal = (Principal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    public ResponseEntity<?> deleteProject(@PathVariable String projectId, Principal principal) {
         projectService.deleteProjectByProjectId(projectId, principal);
-        return new ResponseEntity<String>("Project '" + projectId + "' deleted successfully", HttpStatus.OK);
+        return new ResponseEntity<>("Project '" + projectId + "' deleted successfully", HttpStatus.OK);
     }
 }

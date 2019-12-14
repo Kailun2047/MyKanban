@@ -6,7 +6,6 @@ import gatech.edu.ppmtool.domain.User;
 import gatech.edu.ppmtool.exceptions.ProjectIdException;
 import gatech.edu.ppmtool.repository.BacklogRepository;
 import gatech.edu.ppmtool.repository.ProjectRepository;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -43,14 +42,15 @@ public class ProjectService {
         if (res == null) {
             throw new ProjectIdException("Project id '" + projectId + "' doesn't exist");
         }
+        System.out.println(principal.getName());
         if (!res.getManagerUsername().equals(principal.getName())) {
             throw new ProjectIdException("User '" + principal.getName() + "' doesn't manage project '" + res.getProjectId() + "'");
         }
         return res;
     }
 
-    public Iterable<Project> readAllProjects() {
-        return projectRepository.findAll();
+    public Iterable<Project> readAllProjects(Principal principal) {
+        return projectRepository.findAllByManagerUsername(principal.getName());
     }
 
     public void deleteProjectByProjectId(String projectId, Principal principal) {
