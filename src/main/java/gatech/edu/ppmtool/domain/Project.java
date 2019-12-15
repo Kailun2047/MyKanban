@@ -4,6 +4,7 @@ import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.springframework.data.util.Lazy;
 
 import javax.annotation.Generated;
 import javax.persistence.*;
@@ -31,6 +32,29 @@ public class Project {
     private Date createdAt;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm a z")
     private Date updatedAt;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "manager")
+    @JsonIgnore
+    private User projectManager;
+
+    private String managerUsername;
+
+    public void setManagerUsername(String managerUsername) {
+        this.managerUsername = managerUsername;
+    }
+
+    public String getManagerUsername() {
+        return managerUsername;
+    }
+
+    public void setProjectManager(User projectManager) {
+        this.projectManager = projectManager;
+    }
+
+    public User getProjectManager() {
+        return projectManager;
+    }
 
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "project")
     @JsonIgnore
